@@ -14,7 +14,8 @@
     "@vercel/ncc": "^0.28.3"
   },
   "scripts": {
-    "build": "ncc build src/index.ts --license licenses.txt"
+    "build": "ncc build src/index.ts --license licenses.txt",
+    "prepare": "husky install"
   },
   "husky": {
     "hooks": {
