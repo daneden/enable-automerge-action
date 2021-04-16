@@ -1,0 +1,24 @@
+{
+  "name": "enable-automerge-action",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@actions/core": "^1.2.7",
+    "@actions/github": "^4.0.0",
+    "@octokit/webhooks-definitions": "^3.67.3",
+    "husky": "^6.0.0",
+    "typescript": "^4.2.4"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "^0.28.3"
+  },
+  "scripts": {
+    "build": "ncc build src/index.ts --license licenses.txt"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn build && git add -A ."
+    }
+  }
+}
