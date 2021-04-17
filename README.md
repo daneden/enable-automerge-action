@@ -46,9 +46,9 @@ jobs:
           merge-method: MERGE
 ```
 
-<div class="color-bg-danger color-border-danger">
-<strong>Warning:</strong> Using the <code>pull_request_target</code> event runs the action with read/write repository access from the pull request’s base branch. You should make sure that you only specify trusted PR authors in the action config.
-</div>
+**⚠️ Warning:** Using the `pull_request_target` event runs the action with
+read/write repository access from the pull request’s base branch. You should
+make sure that you only specify trusted PR authors in the action config.
 
 ## Options
 
