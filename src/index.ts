@@ -13,7 +13,10 @@ interface EnablePullRequestAutoMergeResponse {
 }
 
 async function main() {
-  if (github.context.eventName !== "pull_request") {
+  if (!github.context.eventName.startsWith("pull_request")) {
+    core.info(
+      `Expected to be run on pull_request or pull_request_target event but instead received event "${github.context.eventName}"; ending workflow now.`
+    )
     return
   }
 

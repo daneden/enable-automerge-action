@@ -4579,7 +4579,8 @@ var require_github = __commonJS((exports2) => {
 var core = __toModule(require_core());
 var github = __toModule(require_github());
 async function main() {
-  if (github.context.eventName !== "pull_request") {
+  if (!github.context.eventName.startsWith("pull_request")) {
+    core.info(`Expected to be run on pull_request or pull_request_target event but instead received event "${github.context.eventName}"; ending workflow now.`);
     return;
   }
   const payload = github.context.payload;
