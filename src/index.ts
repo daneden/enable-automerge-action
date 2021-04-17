@@ -4,6 +4,14 @@ import { PullRequestEvent } from "@octokit/webhooks-definitions/schema"
 
 type MergeMethod = "MERGE" | "SQUASH" | "REBASE"
 
+interface EnablePullRequestAutoMergeResponse {
+  enablePullRequestAutoMerge: {
+    pullRequest: {
+      autoMergeRequest: { enabledAt: Date }
+    }
+  }
+}
+
 async function main() {
   if (github.context.eventName !== "pull_request") {
     return
@@ -36,21 +44,31 @@ async function main() {
       }
     }`
 
+  const data = await octokit
+    .graphql(query, {
+      pullId,
+      mergeMethod,
+      headers: {
+        authorization: `token ${token}`,
+      },
+    })
+    .catch((error) => {
+      core.error(error)
+    })
+
+  if (!data) {
+    core.error(JSON.stringify(data))
+  }
+
   const {
     enablePullRequestAutoMerge: {
       pullRequest: {
         autoMergeRequest: { enabledAt },
       },
     },
-  } = await octokit.graphql(query, {
-    pullId,
-    mergeMethod,
-    headers: {
-      authorization: `token ${token}`,
-    },
-  })
+  } = data as EnablePullRequestAutoMergeResponse
 
-  core.info(`${enabledAt as string}`)
+  core.info(`${enabledAt}`)
 }
 
 try {

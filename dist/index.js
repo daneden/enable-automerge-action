@@ -6128,7 +6128,7 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 
 function main() {
     return __awaiter(this, void 0, void 0, function () {
-        var payload, mergeMethod, token, octokit, pullRequest, pullId, query, enabledAt;
+        var payload, mergeMethod, token, octokit, pullRequest, pullId, query, data, enabledAt;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -6147,16 +6147,23 @@ function main() {
                 case 1:
                     pullRequest = (_a.sent()).data;
                     pullId = pullRequest.node_id;
-                    query = "mutation {\n      enablePullRequestAutoMerge(input: {\n        pullRequestId: $pullId,\n        mergeMethod: $mergeMethod,\n      }) {\n        pullRequest {\n          id,\n          autoMergeRequest {\n            enabledAt\n          }\n        }\n      }\n    }";
-                    return [4, octokit.graphql(query, {
+                    query = "mutation enableAutoMerge($pullId: ID!, $mergeMethod: PullRequestMergeMethod) {\n      enablePullRequestAutoMerge(input: {\n        pullRequestId: $pullId,\n        mergeMethod: $mergeMethod,\n      }) {\n        pullRequest {\n          id,\n          autoMergeRequest {\n            enabledAt\n          }\n        }\n      }\n    }";
+                    return [4, octokit
+                            .graphql(query, {
                             pullId: pullId,
                             mergeMethod: mergeMethod,
                             headers: {
                                 authorization: "token " + token,
                             },
+                        })["catch"](function (error) {
+                            _actions_core__WEBPACK_IMPORTED_MODULE_0__.error(error);
                         })];
                 case 2:
-                    enabledAt = (_a.sent()).enablePullRequestAutoMerge.pullRequest.autoMergeRequest.enabledAt;
+                    data = _a.sent();
+                    if (!data) {
+                        _actions_core__WEBPACK_IMPORTED_MODULE_0__.error(JSON.stringify(data));
+                    }
+                    enabledAt = data.enablePullRequestAutoMerge.pullRequest.autoMergeRequest.enabledAt;
                     _actions_core__WEBPACK_IMPORTED_MODULE_0__.info("" + enabledAt);
                     return [2];
             }
