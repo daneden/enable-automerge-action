@@ -1,4 +1,4 @@
-# Enable Auto-Merge Action
+# Enable Automerge Action
 
 This GitHub action enables automerge on pull requests opened by a specific
 author (defaulting to `dependabot`).
@@ -27,10 +27,11 @@ Use with caution.
   [generate a personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/)
   and then
   [add it as a repository secret](https://docs.github.com/en/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-a-repository).
-  <details>
-    <summary>Why do I need to provide a PAT instead of `GITHUB_TOKEN`?</summary>
-    This is because enabling automerge is only allowed by users with `repo` write-level access. The `GITHUB_TOKEN` env variable has limited permissions and doesn’t permit changing the automerge status of a pull request.
-  </details>
+
+### Why do I need to provide a PAT instead of `GITHUB_TOKEN`?</summary>
+
+The `GITHUB_TOKEN` env variable has limited permissions and doesn’t permit
+changing the automerge status of a pull request.
 
 ## Usage
 

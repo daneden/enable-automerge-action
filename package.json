@@ -10,11 +10,11 @@
     "typescript": "^4.2.4"
   },
   "devDependencies": {
-    "@vercel/ncc": "^0.28.3",
+    "esbuild": "^0.11.12",
     "pre-commit": "^1.2.2"
   },
   "scripts": {
-    "build": "ncc build src/index.ts --license licenses.txt"
+    "build": "esbuild src/index.ts --bundle --outfile=dist/index.js --platform=node --target=node12"
   },
   "pre-commit": "npm run build && git add -A ."
 }

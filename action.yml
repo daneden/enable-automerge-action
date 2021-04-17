@@ -1,15 +1,15 @@
-name: "Enable Automerge for PRs"
+name: "Enable Automerge Action"
 description: "Enables automerge for PRs under specified conditions"
 inputs:
   github-token:
     description: "Authentication token"
     required: true
   merge-method:
-    description: "The merging strategy for pull requests."
+    description: "The merging method for pull requests."
     required: true
     default: "MERGE"
   allowed-author:
-    description: "The author login for automerge PRs."
+    description: "The author login for automerge-enabled PRs."
     required: true
     default: "dependabot"
 runs:
