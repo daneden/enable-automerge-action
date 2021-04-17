@@ -3,11 +3,18 @@
 This GitHub action enables automerge on pull requests opened by a specific
 author (defaulting to `dependabot`).
 
+With automerge enabled, after required checks have completed, the target pull
+request will automatically be merged using the chosen merge method.
+
 ## Prerequisites
 
 - You need to allow automerge on pull requests for your chosen repository.
   Instructions for doing so can be found in
   [GitHub’s documentation](https://docs.github.com/en/github/administering-a-repository/managing-auto-merge-for-pull-requests-in-your-repository).
+- It’s also recommended that you enable branch protection rules for required
+  status checks and/or requiring branches to be up-to-date before merging.
+  Information about branch protection rules can be found in
+  [GitHub’s documentation](https://docs.github.com/en/github/administering-a-repository/managing-a-branch-protection-rule).
 
 ## Usage
 
