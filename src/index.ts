@@ -27,9 +27,11 @@ async function main() {
         pullRequestId: $pullId,
         mergeMethod: $mergeMethod,
       }) {
-        id,
-        autoMergeRequest {
-          enabledAt
+        pullRequest {
+          id,
+          autoMergeRequest {
+            enabledAt
+          }
         }
       }
     }`
