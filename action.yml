@@ -8,7 +8,7 @@ inputs:
     description: "The merging strategy for pull requests."
     required: true
     default: "MERGE"
-  pr-author:
+  allowed-author:
     description: "The author login for automerge PRs."
     required: true
     default: "dependabot"

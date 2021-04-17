@@ -12,6 +12,11 @@ interface EnablePullRequestAutoMergeResponse {
   }
 }
 
+function tap(v: any) {
+  core.info(JSON.stringify(v))
+  return v
+}
+
 async function main() {
   if (github.context.eventName !== "pull_request") {
     return
@@ -20,6 +25,7 @@ async function main() {
   const payload = github.context.payload as PullRequestEvent
   const mergeMethod = core.getInput("merge-method") as MergeMethod
   const token = core.getInput("github-token")
+  const allowedAuthor = core.getInput("allowed-author")
   const octokit = github.getOctokit(token)
 
   const { data: pullRequest } = await octokit.pulls.get({
@@ -27,6 +33,13 @@ async function main() {
     repo: github.context.repo.repo,
     pull_number: payload.pull_request.number,
   })
+
+  if (pullRequest.user.login !== allowedAuthor) {
+    core.info(
+      `Found PR author ${pullRequest.user.login} but only ${allowedAuthor} is allowed to enable automerge via this action; ending workflow.`
+    )
+    return
+  }
 
   const pullId = pullRequest.node_id
 
@@ -52,6 +65,7 @@ async function main() {
         authorization: `token ${token}`,
       },
     })
+    .then(tap)
     .catch((error) => {
       core.error(error)
     })
