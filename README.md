@@ -61,6 +61,19 @@ and
 [store it in repository secrets](https://docs.github.com/en/actions/reference/encrypted-secrets)
 to pass as the `github-token` value for this action instead.
 
+### Usage in organisation repos
+
+If you set up this workflow to run on organisation-owned repository, you’ll need
+to provide a personal access token instead of `GITHUB_TOKEN`. This is because
+the `enablePullRequestAutoMerge` GraphQL API which powers this action requires a
+specific user to act on behalf as.
+
+[Generate a personal access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)
+and
+[store it in repository secrets](https://docs.github.com/en/actions/reference/encrypted-secrets)
+to pass as the `github-token` value for this action when used in an organisation
+repository.
+
 ## Options
 
 | Option           | Description                                                              | Value(s)                                                                                                                                                                                                                                                                                                  |
