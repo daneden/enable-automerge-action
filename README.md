@@ -29,7 +29,7 @@ on:
   pull_request_target:
 
 jobs:
-  merge-me:
+  automerge:
     name: Enable automerge on dependabot PRs
     runs-on: ubuntu-latest
     steps:
