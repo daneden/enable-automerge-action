@@ -6126,9 +6126,13 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 };
 
 
+function tap(v) {
+    _actions_core__WEBPACK_IMPORTED_MODULE_0__.info(JSON.stringify(v));
+    return v;
+}
 function main() {
     return __awaiter(this, void 0, void 0, function () {
-        var payload, mergeMethod, token, octokit, pullRequest, pullId, query, data, enabledAt;
+        var payload, mergeMethod, token, allowedAuthor, octokit, pullRequest, pullId, query, data, enabledAt;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -6138,6 +6142,7 @@ function main() {
                     payload = _actions_github__WEBPACK_IMPORTED_MODULE_1__.context.payload;
                     mergeMethod = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput("merge-method");
                     token = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput("github-token");
+                    allowedAuthor = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput("allowed-author");
                     octokit = _actions_github__WEBPACK_IMPORTED_MODULE_1__.getOctokit(token);
                     return [4, octokit.pulls.get({
                             owner: _actions_github__WEBPACK_IMPORTED_MODULE_1__.context.repo.owner,
@@ -6146,6 +6151,10 @@ function main() {
                         })];
                 case 1:
                     pullRequest = (_a.sent()).data;
+                    if (pullRequest.user.login !== allowedAuthor) {
+                        _actions_core__WEBPACK_IMPORTED_MODULE_0__.info("Found PR author " + pullRequest.user.login + " but only " + allowedAuthor + " is allowed to enable automerge via this action; ending workflow.");
+                        return [2];
+                    }
                     pullId = pullRequest.node_id;
                     query = "mutation enableAutoMerge($pullId: ID!, $mergeMethod: PullRequestMergeMethod) {\n      enablePullRequestAutoMerge(input: {\n        pullRequestId: $pullId,\n        mergeMethod: $mergeMethod,\n      }) {\n        pullRequest {\n          id,\n          autoMergeRequest {\n            enabledAt\n          }\n        }\n      }\n    }";
                     return [4, octokit
@@ -6155,7 +6164,8 @@ function main() {
                             headers: {
                                 authorization: "token " + token,
                             },
-                        })["catch"](function (error) {
+                        })
+                            .then(tap)["catch"](function (error) {
                             _actions_core__WEBPACK_IMPORTED_MODULE_0__.error(error);
                         })];
                 case 2:
