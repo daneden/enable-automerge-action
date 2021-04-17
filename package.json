@@ -16,5 +16,5 @@
   "scripts": {
     "build": "ncc build src/index.ts --license licenses.txt"
   },
-  "pre-commit": "yarn build && git add -A ."
+  "pre-commit": "npm run build && git add -A ."
 }
