@@ -12,11 +12,6 @@ interface EnablePullRequestAutoMergeResponse {
   }
 }
 
-function tap(v: any) {
-  core.info(JSON.stringify(v))
-  return v
-}
-
 async function main() {
   if (github.context.eventName !== "pull_request") {
     return
@@ -65,7 +60,7 @@ async function main() {
         authorization: `token ${token}`,
       },
     })
-    .then(tap)
+    .then((d) => d)
     .catch((error) => {
       core.error(error)
     })
@@ -82,7 +77,9 @@ async function main() {
     },
   } = data as EnablePullRequestAutoMergeResponse
 
-  core.info(`${enabledAt}`)
+  core.info(
+    `Automerge for #${pullRequest.number} “${pullRequest.title}” by ${pullRequest.user.login} enabled at ${enabledAt}`
+  )
 }
 
 try {

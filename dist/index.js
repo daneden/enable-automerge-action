@@ -6126,10 +6126,6 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 };
 
 
-function tap(v) {
-    _actions_core__WEBPACK_IMPORTED_MODULE_0__.info(JSON.stringify(v));
-    return v;
-}
 function main() {
     return __awaiter(this, void 0, void 0, function () {
         var payload, mergeMethod, token, allowedAuthor, octokit, pullRequest, pullId, query, data, enabledAt;
@@ -6165,7 +6161,7 @@ function main() {
                                 authorization: "token " + token,
                             },
                         })
-                            .then(tap)["catch"](function (error) {
+                            .then(function (d) { return d; })["catch"](function (error) {
                             _actions_core__WEBPACK_IMPORTED_MODULE_0__.error(error);
                         })];
                 case 2:
@@ -6174,7 +6170,7 @@ function main() {
                         _actions_core__WEBPACK_IMPORTED_MODULE_0__.error(JSON.stringify(data));
                     }
                     enabledAt = data.enablePullRequestAutoMerge.pullRequest.autoMergeRequest.enabledAt;
-                    _actions_core__WEBPACK_IMPORTED_MODULE_0__.info("" + enabledAt);
+                    _actions_core__WEBPACK_IMPORTED_MODULE_0__.info("Automerge for #" + pullRequest.number + " \u201C" + pullRequest.title + "\u201D by " + pullRequest.user.login + " enabled at " + enabledAt);
                     return [2];
             }
         });
