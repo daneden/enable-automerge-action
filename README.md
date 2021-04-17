@@ -55,8 +55,8 @@ jobs:
           github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
           # The name of the PR author to enable automerge for
-          # Defaults to dependabot
-          allowed-author: dependabot
+          # Defaults to dependabot[bot]
+          allowed-author: "dependabot[bot]"
 
           # Allowed values: MERGE | SQUASH | REBASE
           # Defaults to MERGE
@@ -68,5 +68,5 @@ jobs:
 | Option           | Description                                                                                                                                        | Value(s)                                                                                                                                                                                                                                                                                                  |
 | :--------------- | :------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `github-token`   | **Required.** A [personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/) for your account. | String                                                                                                                                                                                                                                                                                                    |
-| `allowed-author` | The PR author username for which pull request automerge will be enabled.                                                                           | String<br/>Defaults to `dependabot`                                                                                                                                                                                                                                                                       |
+| `allowed-author` | The PR author username for which pull request automerge will be enabled.                                                                           | String<br/>Defaults to `dependabot[bot]`                                                                                                                                                                                                                                                                  |
 | `merge-method`   | The merge strategy for automerge.                                                                                                                  | `MERGE` (default)<br/>Add all commits from the head branch to the base branch with a merge commit.<br/><br/> `SQUASH`<br/>Combine all commits from the head branch into a single commit in the base branch.<br/><br/>`REBASE`<br/>Add all commits from the head branch onto the base branch individually. |
