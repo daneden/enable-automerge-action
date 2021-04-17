@@ -15,6 +15,9 @@ request will automatically be merged using the chosen merge method.
   status checks and/or requiring branches to be up-to-date before merging.
   Information about branch protection rules can be found in
   [GitHub’s documentation](https://docs.github.com/en/github/administering-a-repository/managing-a-branch-protection-rule).
+- You need to provide the action’s `github-token` option with a _personal access
+  token_ rather than the `GITHUB_TOKEN` environment variable. See
+  [Authentication](#authentication) for details.
 
 ## Usage
 
@@ -36,7 +39,9 @@ jobs:
       - name: Enable automerge on dependabot PRs
         uses: daneden/enable-automerge-action@v1
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          # A personal access token that you have generated and saved in the
+          # repo or org’s encrypted secrets
+          github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
           # The name of the PR author to enable automerge for
           # Defaults to dependabot[bot]
@@ -54,25 +59,18 @@ make sure that you only specify trusted PR authors in the action config.
 The `pull_request_target` event is specifically required for Dependabot PRs
 because of the
 [limited permissions granted to Dependabot by default](https://github.blog/changelog/2021-02-19-github-actions-workflows-triggered-by-dependabot-prs-will-run-with-read-only-permissions/).
-If you choose a different PR author to enable automerge for, it’s recommended
-that you
+
+## Authentication
+
+You will need to
 [generate a personal access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)
 and
-[store it in repository secrets](https://docs.github.com/en/actions/reference/encrypted-secrets)
-to pass as the `github-token` value for this action instead.
+[store it in repository or organisation secrets](https://docs.github.com/en/actions/reference/encrypted-secrets)
+to pass as the `github-token` value for this action to run.
 
-### Usage in organisation repos
-
-If you set up this workflow to run on organisation-owned repository, you’ll need
-to provide a personal access token instead of `GITHUB_TOKEN`. This is because
-the `enablePullRequestAutoMerge` GraphQL API which powers this action requires a
-specific user to act on behalf as.
-
-[Generate a personal access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)
-and
-[store it in repository secrets](https://docs.github.com/en/actions/reference/encrypted-secrets)
-to pass as the `github-token` value for this action when used in an organisation
-repository.
+The reason why you can’t use the standard `GITHUB_TOKEN` env variable is that
+this workflow requires a specific user with write access on the repository to
+act on behalf of.
 
 ## Options
 
