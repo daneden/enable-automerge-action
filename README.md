@@ -25,6 +25,7 @@ Configure this action to run on the `pull_request` event. Here’s an example
 name: Enable automerge on dependabot PRs
 
 on:
+  # See note below about using pull_request_target
   pull_request_target:
 
 jobs:
@@ -49,6 +50,16 @@ jobs:
 **⚠️ Warning:** Using the `pull_request_target` event runs the action with
 read/write repository access from the pull request’s base branch. You should
 make sure that you only specify trusted PR authors in the action config.
+
+The `pull_request_target` event is specifically required for Dependabot PRs
+because of the
+[limited permissions granted to Dependabot by default](https://github.blog/changelog/2021-02-19-github-actions-workflows-triggered-by-dependabot-prs-will-run-with-read-only-permissions/).
+If you choose a different PR author to enable automerge for, it’s recommended
+that you
+[generate a personal access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)
+and
+[store it in repository secrets](https://docs.github.com/en/actions/reference/encrypted-secrets)
+to pass as the `github-token` value for this action instead.
 
 ## Options
 
