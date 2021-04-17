@@ -25,7 +25,7 @@ Configure this action to run on the `pull_request` event. Here’s an example
 name: Enable automerge on dependabot PRs
 
 on:
-  pull_request:
+  pull_request_target:
 
 jobs:
   merge-me:
@@ -45,6 +45,10 @@ jobs:
           # Defaults to MERGE
           merge-method: MERGE
 ```
+
+<div class="color-bg-danger color-border-danger">
+<strong>Warning:</strong> Using the <code>pull_request_target</code> event runs the action with read/write repository access from the pull request’s base branch. You should make sure that you only specify trusted PR authors in the action config.
+</div>
 
 ## Options
 
