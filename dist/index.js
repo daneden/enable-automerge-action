@@ -4586,7 +4586,7 @@ async function main() {
   const mergeMethod = core.getInput("merge-method");
   const token = core.getInput("github-token");
   const allowedAuthor = core.getInput("allowed-author");
-  const octokit = github.getOctokit(token);
+  const octokit = github.getOctokit(token, {auth: token});
   const {data: pullRequest} = await octokit.pulls.get({
     owner: github.context.repo.owner,
     repo: github.context.repo.repo,
