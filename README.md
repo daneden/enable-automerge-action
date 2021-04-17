@@ -6,6 +6,13 @@ author (defaulting to `dependabot`).
 With automerge enabled, after required checks have completed, the target pull
 request will automatically be merged using the chosen merge method.
 
+## ⚠️ Disclosure
+
+This workflow works by leveraging a personal access token via encrypted secrets.
+This means that **anyone with collaborator access to your repository** can
+enable automerge for PRs via this action if it is installed on your repository.
+Use with caution.
+
 ## Prerequisites
 
 - You need to allow automerge on pull requests for your chosen repository.
