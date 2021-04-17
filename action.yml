@@ -11,7 +11,7 @@ inputs:
   allowed-author:
     description: "The author login for automerge-enabled PRs."
     required: true
-    default: "dependabot"
+    default: "dependabot[bot]"
 runs:
   using: "node12"
   main: "dist/index.js"
