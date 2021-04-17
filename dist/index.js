@@ -6147,7 +6147,7 @@ function main() {
                 case 1:
                     pullRequest = (_a.sent()).data;
                     pullId = pullRequest.node_id;
-                    query = "mutation {\n      enablePullRequestAutoMerge(input: {\n        pullRequestId: $pullId,\n        mergeMethod: $mergeMethod,\n      }) {\n        id,\n        autoMergeRequest {\n          enabledAt\n        }\n      }\n    }";
+                    query = "mutation {\n      enablePullRequestAutoMerge(input: {\n        pullRequestId: $pullId,\n        mergeMethod: $mergeMethod,\n      }) {\n        pullRequest {\n          id,\n          autoMergeRequest {\n            enabledAt\n          }\n        }\n      }\n    }";
                     return [4, octokit.graphql(query, {
                             pullId: pullId,
                             mergeMethod: mergeMethod,
