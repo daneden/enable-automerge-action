@@ -1,6 +1,9 @@
 name: "Enable Automerge for PRs"
 description: "Enables automerge for PRs under specified conditions"
 inputs:
+  github-token:
+    description: "Authentication token"
+    required: true
   merge-method:
     description: "The merging strategy for pull requests."
     required: true
