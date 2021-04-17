@@ -22,7 +22,7 @@ async function main() {
 
   const pullId = pullRequest.node_id
 
-  const query = `mutation {
+  const query = `mutation enableAutoMerge($pullId: ID!, $mergeMethod: PullRequestMergeMethod) {
       enablePullRequestAutoMerge(input: {
         pullRequestId: $pullId,
         mergeMethod: $mergeMethod,
