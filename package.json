@@ -10,7 +10,7 @@
     "typescript": "^4.2.4"
   },
   "devDependencies": {
-    "esbuild": "^0.11.12",
+    "esbuild": "^0.13.9",
     "pre-commit": "^1.2.2"
   },
   "scripts": {
